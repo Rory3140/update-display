@@ -1,13 +1,12 @@
 <?php
-$PATH = "/home/raspberrypi/programs/updateDisplay/";
 
 // Connects to database
-include_once $PATH . "conn.php";
+include_once "./conn.php";
 
 function update($conn) {
     global $PATH;
     // Read the contents of the file into a string
-    $fileContents = file_get_contents($PATH . "todoList/todolist.html");
+    $fileContents = file_get_contents("./todolist.html");
 
     // Adds start of HTML file
     $fileString = "
@@ -16,11 +15,11 @@ function update($conn) {
         <head>
         <meta name='viewport' content='width=device-width, initial-scale=1' />
         <title>ToDo List</title>
-        <link rel='stylesheet' href='../style.css' />
+        <link rel='stylesheet' href='./style.css' />
         </head>
 
         <body>
-            <div class='container' style='width: 80%'>
+            <div class='container'>
                 <h1>ToDo List</h1>
                 <table>
     ";
@@ -50,14 +49,14 @@ function update($conn) {
     // Checks for database update
     if ($fileString != $fileContents) {
         // Opens html file
-        $listFile = fopen($PATH . "todoList/todolist.html", "w") or die("Unable to open file");
+        $listFile = fopen("./todolist.html", "w") or die("Unable to open file");
         // Writes to file
         fwrite($listFile, $fileString);
         fclose($listFile);
 
         // Executes script to update display
         echo "\n--Updating Display\n";
-        $output = shell_exec("bash " . $PATH . "todoList/scripts/updateDisplay.sh");
+        $output = shell_exec("bash ./scripts/updateDisplay.sh");
         echo "--Success\n";
     }
 }

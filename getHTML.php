@@ -1,12 +1,14 @@
 <?php
+// Get the current working directory
+$PATH = __DIR__;
 
 // Connects to database
-include_once "./conn.php";
+include_once $PATH . "/conn.php";
 
 function update($conn) {
     global $PATH;
     // Read the contents of the file into a string
-    $fileContents = file_get_contents("./todolist.html");
+    $fileContents = file_get_contents($PATH . "/todolist.html");
 
     // Adds start of HTML file
     $fileString = "
@@ -49,14 +51,14 @@ function update($conn) {
     // Checks for database update
     if ($fileString != $fileContents) {
         // Opens html file
-        $listFile = fopen("./todolist.html", "w") or die("Unable to open file");
+        $listFile = fopen($PATH . "todolist.html", "w") or die("Unable to open file");
         // Writes to file
         fwrite($listFile, $fileString);
         fclose($listFile);
 
         // Executes script to update display
         echo "\n--Updating Display\n";
-        $output = shell_exec("bash ./scripts/updateDisplay.sh");
+        $output = shell_exec("bash " . $PATH . "/scripts/updateDisplay.sh");
         echo "--Success\n";
     }
 }

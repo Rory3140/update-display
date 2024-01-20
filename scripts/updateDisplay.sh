@@ -1,10 +1,9 @@
 #!/bin/bash
-CWD=`pwd`
 
-filename=todolist.html
+filePath=/home/pi/programs/updateDisplay/todolist.html
 
-firefox --headless --screenshot --window-size=800,480 file://$CWD/$filename
+firefox --headless --screenshot --window-size=800,480 file://$filePath
 
-python3 ./scripts/displayImage.py screenshot.png 
+python3 /home/pi/programs/updateDisplay/scripts/displayImage.py /home/pi/programs/updateDisplay/scripts/screenshot.png 
 
-rm screenshot.png 
+rm /home/pi/programs/updateDisplay/scripts/screenshot.png 

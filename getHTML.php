@@ -26,9 +26,10 @@ function update($conn) {
     ";
 
     // Adds messages to table
-    $sql = "SELECT message_text
-    FROM todo t
-    ORDER BY t.message_date ASC;";
+     $sql = "SELECT message_text, todoid
+            FROM todo t
+            WHERE t.userid = 0
+            ORDER BY t.message_date ASC;";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
